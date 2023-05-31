@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from "react";
-
+import { LuPizza } from "react-icons/lu";
+import { BsCart4 } from "react-icons/bs";
 const NavBar = () => {
   return (
     <nav className="bg-gray-800 shadow-md">
@@ -8,8 +9,9 @@ const NavBar = () => {
         <div className="flex items-center justify-between h-20">
           <a
             href="#"
-            className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+            className="text-gray-300  hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
           >
+            <LuPizza className="inline-block w-8 h-8" />
             Delicious Pizza
           </a>
           <div>
@@ -24,6 +26,7 @@ const NavBar = () => {
               className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
             >
               Cart
+              <BsCart4 className="inline-block h-7 w-7 px-1" />
             </a>
           </div>
         </div>

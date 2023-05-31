@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Modal from "./Modal";
+
 const Pizza = ({ pizza }) => {
   const [varient, setVarient] = useState("small");
   const [quantity, setQuantity] = useState(1);
