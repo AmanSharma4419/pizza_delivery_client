@@ -9,24 +9,24 @@ const NavBar = () => {
         <div className="flex items-center justify-between h-20">
           <a
             href="#"
-            className="text-gray-300  hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+            className="text-gray-300 text-xl hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
           >
-            <LuPizza className="inline-block w-8 h-8" />
+            <LuPizza className="inline-block w-10 h-10" />
             Delicious Pizza
           </a>
           <div>
             <a
               href="#"
-              className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+              className="text-gray-300 text-xl hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
             >
               Login
             </a>
             <a
               href="#"
-              className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+              className="text-gray-300 text-xl hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
             >
               Cart
-              <BsCart4 className="inline-block h-7 w-7 px-1" />
+              <BsCart4 className="inline-block w-10 h-10 px-1" />
             </a>
           </div>
         </div>
