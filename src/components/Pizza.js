@@ -4,21 +4,13 @@ import Modal from "./Modal";
 const Pizza = ({ pizza }) => {
   const [varient, setVarient] = useState("small");
   const [quantity, setQuantity] = useState(1);
-  const [modalOpen, handleModal] = useState({
-    isOpen: false,
-  });
-
-  const handleModalClose = () => {
-    return handleModal({ ...modalOpen, isOpen: false });
-  };
-  const handleModalOpen = () => {
-    return handleModal({ ...modalOpen, isOpen: true });
-  };
 
   return (
     <>
-      <div className={`w-96 h-auto shadow-2xl m-12 `}>
-        <div className="flex flex-col justify-center items-center pt-4">
+      <div
+        className={`w-96 h-auto shadow-2xl m-12 border-solid border-2 border-black-500 transition duration-150 shadow-xl shadow-black-500/50 cursor-pointer`}
+      >
+        <div className="flex hover:shadow-inner flex-col justify-center items-center pt-4">
           <p className="font-semibold text-lg subpixel-antialiased">
             {pizza.name}
           </p>
@@ -26,9 +18,6 @@ const Pizza = ({ pizza }) => {
             title={pizza.name}
             img={pizza.image}
             desc={pizza.description}
-            isOpen={modalOpen.isOpen}
-            onClose={handleModalClose}
-            onClick={handleModalOpen}
           />
           <img
             className="w-52 h-52 rounded-full"

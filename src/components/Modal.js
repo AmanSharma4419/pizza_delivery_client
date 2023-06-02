@@ -5,11 +5,13 @@ const contentStyle = {
   maxWidth: "600px",
   width: "90%",
 };
-const Modal = ({ title, isOpen, onClick, img, desc, onClose }) => {
+const Modal = ({ title, img, desc }) => {
   return (
     <Popup
       trigger={
-        <button className="font-semibold hover:underline mt-1"> Know More... </button>
+        <button className="font-semibold hover:underline mt-1">
+          Know More...
+        </button>
       }
       modal
       contentStyle={contentStyle}

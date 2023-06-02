@@ -11,7 +11,7 @@ const NavBar = () => {
             href="#"
             className="text-gray-300 text-xl hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
           >
-            <LuPizza className="inline-block w-10 h-10" />
+            <LuPizza className="inline-block w-10 h-8" />
             Delicious Pizza
           </a>
           <div>
@@ -26,7 +26,7 @@ const NavBar = () => {
               className="text-gray-300 text-xl hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
             >
               Cart
-              <BsCart4 className="inline-block w-10 h-10 px-1" />
+              <BsCart4 className="inline-block w-10 h-7 px-1" />
             </a>
           </div>
         </div>
