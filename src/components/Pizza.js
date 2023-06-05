@@ -66,7 +66,9 @@ const Pizza = ({ pizza }) => {
               </span>
             );
           })}
-          <button className="bg-red-500 text-white p-2">Add To Cart</button>
+          <button className="bg-red-500 text-white p-2">
+            <a href="/cart"> Add To Cart</a>
+          </button>
         </div>
       </div>
     </>
