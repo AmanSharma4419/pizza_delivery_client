@@ -1,29 +1,31 @@
 import {
-  GET_PIZZAS_REQUEST,
-  GET_PIZZAS_SUCCESS,
-  GET_PIZZAS_FAILED,
+  REGISTERATION_REQUEST_SENT,
+  REGISTERATION_SUCCESS,
+  REGISTERATION_FAILED,
 } from "../actions/actionTypes";
 
 const initialState = {
-  allPizzaDataInfo: [],
+  user: [],
   error: "",
   loading: false,
 };
 
-export const getAllPizzaReducer = (state = initialState, action) => {
+export const userRegisterReducer = (state = initialState, action) => {
   switch (action.type) {
-    case GET_PIZZAS_REQUEST:
+    case REGISTERATION_REQUEST_SENT:
       return {
         ...state,
         loading: true,
       };
-    case GET_PIZZAS_SUCCESS:
+
+    case REGISTERATION_SUCCESS:
       return {
         ...state,
+        user: action.payload,
         loading: false,
-        allPizzaDataInfo: [...action.payload],
       };
-    case GET_PIZZAS_FAILED:
+
+    case REGISTERATION_FAILED:
       return {
         ...state,
         error: action.payload,

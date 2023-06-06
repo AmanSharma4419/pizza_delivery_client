@@ -8,9 +8,11 @@ import thunk from "redux-thunk";
 import { composeWithDevTools } from "@redux-devtools/extension";
 
 import { getAllPizzaReducer } from "./reducers/pizzaReducers";
+import { userRegisterReducer } from "./reducers/userReducers";
 
 const parentReducer = combineReducers({
   getAllPizzaReducer,
+  userRegisterReducer,
 });
 
 const composeEnhancers = composeWithDevTools({});

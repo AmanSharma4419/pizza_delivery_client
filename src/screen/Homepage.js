@@ -3,6 +3,7 @@ import Pizza from "../components/Pizza";
 import { getAllPizzas } from "../actions/pizzaActions";
 import { useDispatch, useSelector } from "react-redux";
 import { BiCommentError, BiLoader } from "react-icons/bi";
+
 const Homepage = () => {
   const dispatch = useDispatch();
 
