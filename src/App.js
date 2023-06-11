@@ -1,5 +1,6 @@
 import NavBar from "./components/Navbar.js";
-import Homepage from "./screen/Homepage.js";
+import HomePage from "./screen/HomePage.js";
+import ForgotPassword from "./screen/ForgotPassword.js";
 import Login from "./screen/Login.js";
 import Register from "./screen/Register.js";
 import Cart from "./screen/Cart.js";
@@ -12,10 +13,11 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route>
-            <Route exact path="/" element={<Homepage />} />
+            <Route exact path="/" element={<HomePage />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/forgot" element={<ForgotPassword />} />
           </Route>
         </Routes>
       </BrowserRouter>

@@ -1,22 +1,54 @@
-import React from "react";
-
+import React, { useState } from "react";
+import { userLogin } from "../actions/userAction";
+import { useDispatch, useSelector } from "react-redux";
+import { BiLoader } from "react-icons/bi";
+import { useNavigate } from "react-router-dom";
 const Login = () => {
+  const [loginFormData, setLoginFormData] = useState({
+    email: "",
+    password: "",
+  });
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setLoginFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const dispatch = useDispatch();
+
+  // const userInfo = useSelector((state) => state.userRegisterReducer);
+  // const { loading, error, user } = userInfo;
+
+  const handleSubmitLoginForm = (e) => {
+    e.preventDefault();
+    dispatch(userLogin({ loginFormData }));
+  };
+  // const navigate = useNavigate();
+  // if (user.status === 200) {
+  //   console.log(user, "user");
+  // }
+  const { email, password } = loginFormData;
   return (
     <div class="flex justify-center items-center mt-12">
       <div class="bg-white shadow-md rounded px-8 py-6 w-1/3">
         <h2 class="text-2xl font-bold mb-6">Login</h2>
-        <form>
+        <form onSubmit={(e) => handleSubmitLoginForm(e)}>
           <div class="mb-4">
             <label
               class="block text-gray-700 text-sm font-bold mb-2"
               for="username"
             >
-              Username
+              Email
             </label>
             <input
               class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              id="username"
+              name="email"
               type="text"
+              value={email}
+              onChange={handleInputChange}
               placeholder="Enter your username"
             />
           </div>
@@ -29,15 +61,17 @@ const Login = () => {
             </label>
             <input
               class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              id="password"
+              name="password"
               type="password"
+              value={password}
+              onChange={handleInputChange}
               placeholder="Enter your password"
             />
           </div>
           <div class="flex items-center justify-between">
             <button
               class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-              type="button"
+              type="submit"
             >
               Sign In
             </button>
@@ -49,7 +83,7 @@ const Login = () => {
             </a>
             <a
               class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800"
-              href="#"
+              href="/forgot"
             >
               Forgot Password?
             </a>

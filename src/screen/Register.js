@@ -3,8 +3,9 @@ import React, { useState } from "react";
 import { userRegister } from "../actions/userAction";
 import { useDispatch, useSelector } from "react-redux";
 import { BiLoader } from "react-icons/bi";
+import { useNavigate } from "react-router-dom";
 
-const Register = () => {
+const Register = (props) => {
   const [signupFormData, setSignupFormData] = useState({
     name: "",
     email: "",
@@ -34,7 +35,11 @@ const Register = () => {
     e.preventDefault();
     dispatch(userRegister({ signupFormData, userProfileImg }));
   };
-
+  const navigate = useNavigate();
+  if (user.status === 200) {
+    console.log(user, "user");
+    navigate("/login");
+  }
   const { name, email, password } = signupFormData;
   return (
     <div class="flex justify-center items-center mt-12">
@@ -116,7 +121,7 @@ const Register = () => {
             </button>
             <a
               class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800"
-              href="#"
+              href="/login"
             >
               <span> Already have account </span> login
             </a>

@@ -4,7 +4,7 @@ import { getAllPizzas } from "../actions/pizzaActions";
 import { useDispatch, useSelector } from "react-redux";
 import { BiCommentError, BiLoader } from "react-icons/bi";
 
-const Homepage = () => {
+const HomePage = () => {
   const dispatch = useDispatch();
 
   const pizzasState = useSelector((state) => state.getAllPizzaReducer);
@@ -37,4 +37,4 @@ const renderPizzas = (allPizzaDataInfo) => {
   });
 };
 
-export default Homepage;
+export default HomePage;
