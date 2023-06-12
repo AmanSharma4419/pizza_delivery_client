@@ -9,10 +9,12 @@ import { composeWithDevTools } from "@redux-devtools/extension";
 
 import { getAllPizzaReducer } from "./reducers/pizzaReducers";
 import { userRegisterReducer } from "./reducers/userReducers";
+import { cartReducer } from "./reducers/cartReducers";
 
 const parentReducer = combineReducers({
   getAllPizzaReducer,
   userRegisterReducer,
+  cartReducer,
 });
 
 const composeEnhancers = composeWithDevTools({});

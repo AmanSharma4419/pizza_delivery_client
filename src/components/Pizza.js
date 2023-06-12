@@ -1,14 +1,35 @@
 import React, { useState } from "react";
 import Modal from "./Modal";
+import { useDispatch, useSelector } from "react-redux";
+import { itemAddToCart } from "../actions/cartActions";
+import { BiCommentError, BiLoader } from "react-icons/bi";
 
 const Pizza = ({ pizza }) => {
   const [varient, setVarient] = useState("small");
   const [quantity, setQuantity] = useState(1);
+  const dispatch = useDispatch();
+  const addItemToCart = (item) => {
+    const { name, image } = item;
+    const price = item.prices.reduce(
+      (total, pizza) => total + pizza[varient] * quantity,
+      0
+    );
+    const itemData = {
+      name,
+      image,
+      varient,
+      price,
+      quantity,
+    };
+    return dispatch(itemAddToCart(itemData));
+  };
+  // const item = useSelector((state) => state.addItemToCartReducer);
+  // const { itemAddedToCart, error, loading } = item;
 
   return (
     <>
       <div
-        className={`w-96 h-auto shadow-2xl m-12 border-solid border-2 border-black-500 transition duration-150 shadow-xl shadow-black-500/50 cursor-pointer`}
+        className={`w-96 h-auto shadow-2xl m-12 border-solid border-2 border-black-500 transition duration-150  shadow-black-500/50 cursor-pointer`}
       >
         <div className="flex hover:shadow-inner flex-col justify-center items-center pt-4">
           <p className="font-semibold text-lg subpixel-antialiased">
@@ -25,7 +46,6 @@ const Pizza = ({ pizza }) => {
             alt="pizza..."
           />
         </div>
-
         <div className="flex justify-evenly mt-2">
           <div className="flex flex-col font-semibold">
             <label for="varients">Varients:</label>
@@ -66,8 +86,13 @@ const Pizza = ({ pizza }) => {
               </span>
             );
           })}
-          <button className="bg-red-500 text-white p-2">
-            <a href="/cart"> Add To Cart</a>
+          <button
+            onClick={() => {
+              addItemToCart(pizza);
+            }}
+            className="bg-red-500 text-white p-2"
+          >
+            Add To Cart
           </button>
         </div>
       </div>

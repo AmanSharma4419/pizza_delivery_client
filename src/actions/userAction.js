@@ -10,13 +10,19 @@ import {
 
 const BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
-export const userRegister = (user) => {
+export const userRegister = (user, userProfileImg) => {
   return async (dispatch) => {
     dispatch({ type: REGISTERATION_REQUEST_SENT });
     try {
+      const { name, email, password } = user;
+      const formData = new FormData();
+      formData.append("name", name);
+      formData.append("email", email);
+      formData.append("password", password);
+      formData.append("avtar", userProfileImg);
       const response = await axios.post(
         `${BASE_URL}/api/user/add-user`,
-        user.signupFormData
+        formData
       );
       if (response) {
         return dispatch({

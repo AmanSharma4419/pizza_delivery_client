@@ -33,11 +33,10 @@ const Register = (props) => {
 
   const handleSubmitRegisterationForm = (e) => {
     e.preventDefault();
-    dispatch(userRegister({ signupFormData, userProfileImg }));
+    dispatch(userRegister(signupFormData, userProfileImg));
   };
   const navigate = useNavigate();
   if (user.status === 200) {
-    console.log(user, "user");
     navigate("/login");
   }
   const { name, email, password } = signupFormData;
