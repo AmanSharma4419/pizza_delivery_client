@@ -3,29 +3,34 @@ import Modal from "./Modal";
 import { useDispatch, useSelector } from "react-redux";
 import { itemAddToCart } from "../actions/cartActions";
 import { BiCommentError, BiLoader } from "react-icons/bi";
+import Cookies from "js-cookie";
 
 const Pizza = ({ pizza }) => {
   const [varient, setVarient] = useState("small");
   const [quantity, setQuantity] = useState(1);
   const dispatch = useDispatch();
   const addItemToCart = (item) => {
-    const { name, image } = item;
-    const price = item.prices.reduce(
-      (total, pizza) => total + pizza[varient] * quantity,
-      0
-    );
-    const itemData = {
-      name,
-      image,
-      varient,
-      price,
-      quantity,
-    };
-    return dispatch(itemAddToCart(itemData));
+    const token = Cookies.get("token");
+    if (token) {
+      const { name, image } = item;
+      const price = item.prices.reduce(
+        (total, pizza) => total + pizza[varient] * quantity,
+        0
+      );
+      const itemData = {
+        name,
+        image,
+        varient,
+        price,
+        quantity,
+      };
+      return dispatch(itemAddToCart(itemData));
+    } else {
+      return alert("Login first");
+    }
   };
   const item = useSelector((state) => state.cartReducer);
   const { itemAddedToCart, error, loading } = item;
-
   return (
     <>
       <div
