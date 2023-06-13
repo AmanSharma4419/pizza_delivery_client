@@ -22,7 +22,10 @@ export const userRegister = (user, userProfileImg) => {
       formData.append("avtar", userProfileImg);
       const response = await axios.post(
         `${BASE_URL}/api/user/add-user`,
-        formData
+        formData,
+        {
+          withCredentials: true,
+        }
       );
       if (response) {
         return dispatch({
@@ -42,7 +45,10 @@ export const userLogin = (user) => {
     try {
       const response = await axios.post(
         `${BASE_URL}/api/user/login-user`,
-        user.loginFormData
+        user.loginFormData,
+        {
+          withCredentials: true,
+        }
       );
       if (response) {
         return dispatch({

@@ -11,7 +11,9 @@ export const getAllPizzas = () => {
   return async (dispatch) => {
     dispatch({ type: GET_PIZZAS_REQUEST });
     try {
-      const response = await axios.get(`${BASE_URL}/api/pizza/get-pizzas`);
+      const response = await axios.get(`${BASE_URL}/api/pizza/get-pizzas`, {
+        withCredentials: true,
+      });
       if (response) {
         return dispatch({
           type: GET_PIZZAS_SUCCESS,

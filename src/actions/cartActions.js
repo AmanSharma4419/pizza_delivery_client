@@ -14,7 +14,8 @@ export const itemAddToCart = (itemData) => {
     try {
       const response = await axios.post(
         `${BASE_URL}/api/cart/add-item-cart`,
-        itemData
+        itemData,
+        { withCredentials: true }
       );
       if (response) {
         return dispatch({
@@ -35,7 +36,9 @@ export const cartItemList = () => {
   return async (dispatch) => {
     dispatch({ type: ITEM_TO_CART_SENT });
     try {
-      const response = await axios.get(`${BASE_URL}/api/cart/item-list-cart`);
+      const response = await axios.get(`${BASE_URL}/api/cart/item-list-cart`, {
+        withCredentials: true,
+      });
       if (response) {
         return dispatch({
           type: ITEM_TO_CART_SENT_SUCCESS,

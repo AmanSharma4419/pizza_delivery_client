@@ -23,8 +23,8 @@ const Pizza = ({ pizza }) => {
     };
     return dispatch(itemAddToCart(itemData));
   };
-  // const item = useSelector((state) => state.addItemToCartReducer);
-  // const { itemAddedToCart, error, loading } = item;
+  const item = useSelector((state) => state.cartReducer);
+  const { itemAddedToCart, error, loading } = item;
 
   return (
     <>
@@ -92,7 +92,7 @@ const Pizza = ({ pizza }) => {
             }}
             className="bg-red-500 text-white p-2"
           >
-            Add To Cart
+            {loading ? <BiLoader /> : "Add To Cart"}
           </button>
         </div>
       </div>
