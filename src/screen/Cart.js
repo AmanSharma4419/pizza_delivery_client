@@ -2,12 +2,14 @@ import React, { useState, useEffect } from "react";
 import { AiFillPlusCircle, AiFillMinusCircle } from "react-icons/ai";
 import { cartItemList } from "../actions/cartActions";
 import { useDispatch } from "react-redux";
+
 const Cart = () => {
   const [quantity, setQuantity] = useState(1);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(cartItemList());
   }, []);
+
   return (
     <div className="flex justify-between">
       <div className="ml-32 w-[40%]">

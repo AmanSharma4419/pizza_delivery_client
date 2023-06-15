@@ -4,11 +4,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { itemAddToCart } from "../actions/cartActions";
 import { BiCommentError, BiLoader } from "react-icons/bi";
 import Cookies from "js-cookie";
+import { useNavigate } from "react-router-dom";
 
 const Pizza = ({ pizza }) => {
   const [varient, setVarient] = useState("small");
   const [quantity, setQuantity] = useState(1);
   const dispatch = useDispatch();
+  const history = useNavigate();
   const addItemToCart = (item) => {
     const token = Cookies.get("token");
     if (token) {
@@ -24,9 +26,10 @@ const Pizza = ({ pizza }) => {
         price,
         quantity,
       };
-      return dispatch(itemAddToCart(itemData));
+      dispatch(itemAddToCart(itemData));
+      return history("/cart");
     } else {
-      return alert("Login first");
+      return history("/login");
     }
   };
   const item = useSelector((state) => state.cartReducer);

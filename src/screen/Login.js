@@ -3,6 +3,7 @@ import { userLogin } from "../actions/userAction";
 import { useDispatch, useSelector } from "react-redux";
 import { BiLoader } from "react-icons/bi";
 import { useNavigate } from "react-router-dom";
+
 const Login = () => {
   const [loginFormData, setLoginFormData] = useState({
     email: "",
@@ -18,23 +19,26 @@ const Login = () => {
   };
 
   const dispatch = useDispatch();
-
-  // const userInfo = useSelector((state) => state.userRegisterReducer);
-  // const { loading, error, user } = userInfo;
+  const navigate = useNavigate();
+  const userInfo = useSelector((state) => state.userAuthReducer);
+  if (userInfo) {
+    var { loading, error, user } = userInfo;
+    if (user.status === 200) {
+      return navigate("/");
+    }
+  }
 
   const handleSubmitLoginForm = (e) => {
     e.preventDefault();
     dispatch(userLogin({ loginFormData }));
   };
-  // const navigate = useNavigate();
-  // if (user.status === 200) {
-  //   console.log(user, "user");
-  // }
+
   const { email, password } = loginFormData;
+
   return (
     <div class="flex justify-center items-center mt-12">
       <div class="bg-white shadow-md rounded px-8 py-6 w-1/3">
-        <h2 class="text-2xl font-bold mb-6">Login</h2>
+        <h2 class="text-2xl font-bold mb-6">{error ? error : "Login"}</h2>
         <form onSubmit={(e) => handleSubmitLoginForm(e)}>
           <div class="mb-4">
             <label
@@ -73,7 +77,7 @@ const Login = () => {
               class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
               type="submit"
             >
-              Sign In
+              {loading ? <BiLoader /> : "Login"}
             </button>
             <a
               class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800"

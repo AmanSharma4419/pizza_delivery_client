@@ -32,13 +32,16 @@ export const itemAddToCart = (itemData) => {
   };
 };
 
-export const cartItemList = () => {
+export const cartItemList = (_id) => {
   return async (dispatch) => {
     dispatch({ type: ITEM_TO_CART_SENT });
     try {
-      const response = await axios.get(`${BASE_URL}/api/cart/item-list-cart`, {
-        withCredentials: true,
-      });
+      const response = await axios.get(
+        `${BASE_URL}/api/cart/item-list-cart/${_id}`,
+        {
+          withCredentials: true,
+        }
+      );
       if (response) {
         return dispatch({
           type: ITEM_TO_CART_SENT_SUCCESS,

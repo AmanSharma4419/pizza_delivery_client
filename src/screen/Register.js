@@ -28,7 +28,7 @@ const Register = (props) => {
 
   const dispatch = useDispatch();
 
-  const userInfo = useSelector((state) => state.userRegisterReducer);
+  const userInfo = useSelector((state) => state.userAuthReducer);
   const { loading, error, user } = userInfo;
 
   const handleSubmitRegisterationForm = (e) => {
