@@ -9,8 +9,8 @@ import { Routes, Route, BrowserRouter } from "react-router-dom";
 function App() {
   return (
     <>
-      <NavBar />
       <BrowserRouter>
+        <NavBar />
         <Routes>
           <Route>
             <Route exact path="/" element={<HomePage />} />

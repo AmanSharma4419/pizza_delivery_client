@@ -3,6 +3,7 @@ import { userLogin } from "../actions/userAction";
 import { useDispatch, useSelector } from "react-redux";
 import { BiLoader } from "react-icons/bi";
 import { useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 
 const Login = () => {
   const [loginFormData, setLoginFormData] = useState({
@@ -21,8 +22,10 @@ const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const userInfo = useSelector((state) => state.userAuthReducer);
-  if (userInfo) {
+  
+  if (userInfo && userInfo.user.length !== 0) {
     var { loading, error, user } = userInfo;
+    Cookies.set("userId", user.data._id);
     if (user.status === 200) {
       return navigate("/");
     }

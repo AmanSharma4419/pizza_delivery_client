@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import Modal from "./Modal";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { itemAddToCart } from "../actions/cartActions";
-import { BiCommentError, BiLoader } from "react-icons/bi";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 
@@ -13,6 +12,8 @@ const Pizza = ({ pizza }) => {
   const history = useNavigate();
   const addItemToCart = (item) => {
     const token = Cookies.get("token");
+    const id = Cookies.get("userId");
+
     if (token) {
       const { name, image } = item;
       const price = item.prices.reduce(
@@ -27,13 +28,13 @@ const Pizza = ({ pizza }) => {
         quantity,
       };
       dispatch(itemAddToCart(itemData));
-      return history("/cart");
+      setTimeout(() => {
+        return history(`/cart/${id}`);
+      }, 1000);
     } else {
       return history("/login");
     }
   };
-  const item = useSelector((state) => state.cartReducer);
-  const { itemAddedToCart, error, loading } = item;
   return (
     <>
       <div
@@ -100,7 +101,7 @@ const Pizza = ({ pizza }) => {
             }}
             className="bg-red-500 text-white p-2"
           >
-            {loading ? <BiLoader /> : "Add To Cart"}
+            Add To Cart
           </button>
         </div>
       </div>

@@ -2,14 +2,25 @@
 import React from "react";
 import { LuPizza } from "react-icons/lu";
 import { BsCart4 } from "react-icons/bs";
+import { useNavigate } from "react-router-dom";
+
+import Cookies from "js-cookie";
+
 const NavBar = () => {
+  const id = Cookies.get("userId");
+  const navigate = useNavigate();
+
+  const handleCartIconClick = () => {
+    return navigate(`/cart/${id}`);
+  };
+
   return (
     <nav className="bg-gray-800 shadow-md">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           <a
             href="/"
-            className="text-gray-300 text-xl hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+            className="text-gray-300  hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
           >
             <LuPizza className="inline-block w-10 h-8" />
             Delicious Pizza
@@ -17,13 +28,15 @@ const NavBar = () => {
           <div>
             <a
               href="/login"
-              className="text-gray-300 text-xl hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+              className="text-gray-300  hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
             >
               Login
             </a>
             <a
-              href="/cart"
-              className="text-gray-300 text-xl hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+              onClick={() => {
+                handleCartIconClick();
+              }}
+              className="text-gray-300  hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
             >
               Cart
               <BsCart4 className="inline-block w-10 h-7 px-1" />

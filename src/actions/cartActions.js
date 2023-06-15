@@ -4,6 +4,9 @@ import {
   ITEM_TO_CART_SENT,
   ITEM_TO_CART_SENT_FAILED,
   ITEM_TO_CART_SENT_SUCCESS,
+  VIEW_CART_DATA_REQUEST_SENT,
+  VIEW_CART_DATA_REQUEST_SUCCESS,
+  VIEW_CART_DATA_REQUEST_FAILED,
 } from "./actionTypes";
 
 const BASE_URL = process.env.REACT_APP_API_BASE_URL;
@@ -32,25 +35,25 @@ export const itemAddToCart = (itemData) => {
   };
 };
 
-export const cartItemList = (_id) => {
+export const cartItemList = (id) => {
   return async (dispatch) => {
-    dispatch({ type: ITEM_TO_CART_SENT });
+    dispatch({ type: VIEW_CART_DATA_REQUEST_SENT });
     try {
       const response = await axios.get(
-        `${BASE_URL}/api/cart/item-list-cart/${_id}`,
+        `${BASE_URL}/api/cart/item-list-cart/${id}`,
         {
           withCredentials: true,
         }
       );
       if (response) {
         return dispatch({
-          type: ITEM_TO_CART_SENT_SUCCESS,
+          type: VIEW_CART_DATA_REQUEST_SUCCESS,
           payload: response.data.data,
         });
       }
     } catch (error) {
       return dispatch({
-        type: ITEM_TO_CART_SENT_FAILED,
+        type: VIEW_CART_DATA_REQUEST_FAILED,
         payload: error.message,
       });
     }

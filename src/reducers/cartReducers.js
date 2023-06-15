@@ -42,7 +42,7 @@ export const cartReducer = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
-        itemAddedToCart: action.payload,
+        cartItemsList: action.payload,
       };
     case VIEW_CART_DATA_REQUEST_FAILED:
       return {
