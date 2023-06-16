@@ -13,8 +13,7 @@ const Pizza = ({ pizza }) => {
   const addItemToCart = (item) => {
     const token = Cookies.get("token");
     const id = Cookies.get("userId");
-
-    if (token) {
+    if (token && id) {
       const { name, image } = item;
       const price = item.prices.reduce(
         (total, pizza) => total + pizza[varient] * quantity,
@@ -67,7 +66,11 @@ const Pizza = ({ pizza }) => {
               }}
             >
               {pizza.varients.map((varient, index) => {
-                return <option value={varient}>{varient}</option>;
+                return (
+                  <option key={index} value={varient}>
+                    {varient}
+                  </option>
+                );
               })}
             </select>
           </div>
@@ -81,8 +84,12 @@ const Pizza = ({ pizza }) => {
                 setQuantity(e.target.value);
               }}
             >
-              {[...Array(10).keys()].map((qty) => {
-                return <option value={qty + 1}>{qty + 1}</option>;
+              {[...Array(10).keys()].map((qty, index) => {
+                return (
+                  <option key={index} value={qty + 1}>
+                    {qty + 1}
+                  </option>
+                );
               })}
             </select>
           </div>

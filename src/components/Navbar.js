@@ -3,15 +3,24 @@ import React from "react";
 import { LuPizza } from "react-icons/lu";
 import { BsCart4 } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 import Cookies from "js-cookie";
 
 const NavBar = () => {
   const id = Cookies.get("userId");
+  const token = Cookies.get("token");
+
   const navigate = useNavigate();
+  const cartItems = useSelector((state) => state.cartReducer);
+  var { cartItemsList } = cartItems;
 
   const handleCartIconClick = () => {
-    return navigate(`/cart/${id}`);
+    if (id) {
+      return navigate(`/cart/${id}`);
+    } else {
+      return navigate(`/login`);
+    }
   };
 
   return (
@@ -30,7 +39,7 @@ const NavBar = () => {
               href="/login"
               className="text-gray-300  hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
             >
-              Login
+              {id && token ? "Logout" : "Login"}
             </a>
             <a
               onClick={() => {
@@ -38,7 +47,7 @@ const NavBar = () => {
               }}
               className="text-gray-300  hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
             >
-              Cart
+              Cart ({cartItemsList.length})
               <BsCart4 className="inline-block w-10 h-7 px-1" />
             </a>
           </div>

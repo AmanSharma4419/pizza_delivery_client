@@ -22,9 +22,9 @@ const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const userInfo = useSelector((state) => state.userAuthReducer);
-  
+  const { loading, error, user } = userInfo;
+
   if (userInfo && userInfo.user.length !== 0) {
-    var { loading, error, user } = userInfo;
     Cookies.set("userId", user.data._id);
     if (user.status === 200) {
       return navigate("/");
