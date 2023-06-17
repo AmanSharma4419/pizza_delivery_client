@@ -11,9 +11,14 @@ const Pizza = ({ pizza }) => {
   const dispatch = useDispatch();
   const history = useNavigate();
   const addItemToCart = (item) => {
-    const token = Cookies.get("token");
-    const id = Cookies.get("userId");
-    if (token && id) {
+    const cookieInfo = {};
+    const cookieData = ["userId", "authToken"];
+    for (let i = 0; i <= cookieData.length; i++) {
+      cookieInfo[cookieData[i]] = Cookies.get(`${cookieData[i]}`);
+    }
+    const { authToken, userId } = cookieInfo;
+
+    if (authToken && userId) {
       const { name, image } = item;
       const price = item.prices.reduce(
         (total, pizza) => total + pizza[varient] * quantity,
@@ -28,7 +33,7 @@ const Pizza = ({ pizza }) => {
       };
       dispatch(itemAddToCart(itemData));
       setTimeout(() => {
-        return history(`/cart/${id}`);
+        return history(`/cart/${userId}`);
       }, 1000);
     } else {
       return history("/login");

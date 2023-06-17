@@ -8,18 +8,29 @@ import { useSelector } from "react-redux";
 import Cookies from "js-cookie";
 
 const NavBar = () => {
-  const id = Cookies.get("userId");
-  const token = Cookies.get("token");
+  const cookieInfo = {};
 
+  const cookieData = ["userId", "authToken"];
+  for (let i = 0; i <= cookieData.length; i++) {
+    cookieInfo[cookieData[i]] = Cookies.get(`${cookieData[i]}`);
+  }
+  const { userId, authToken } = cookieInfo;
   const navigate = useNavigate();
   const cartItems = useSelector((state) => state.cartReducer);
   var { cartItemsList } = cartItems;
 
   const handleCartIconClick = () => {
-    if (id) {
-      return navigate(`/cart/${id}`);
+    if (userId) {
+      return navigate(`/cart/${userId}`);
     } else {
       return navigate(`/login`);
+    }
+  };
+
+  const handleLogout = () => {
+    const cookieData = ["userId", "authToken"];
+    for (let i = 0; i <= cookieData.length; i++) {
+      Cookies.remove(cookieData[i]);
     }
   };
 
@@ -37,13 +48,16 @@ const NavBar = () => {
           <div>
             <a
               href="/login"
+              onClick={() => {
+                return handleLogout();
+              }}
               className="text-gray-300  hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
             >
-              {id && token ? "Logout" : "Login"}
+              {userId && authToken ? "Logout" : "Login"}
             </a>
             <a
               onClick={() => {
-                handleCartIconClick();
+                return handleCartIconClick();
               }}
               className="text-gray-300  hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
             >
