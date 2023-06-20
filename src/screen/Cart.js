@@ -1,18 +1,24 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { AiFillPlusCircle, AiFillMinusCircle } from "react-icons/ai";
-import { cartItemList } from "../actions/cartActions";
+import {
+  cartItemList,
+  removeCartItem,
+  changeCartItemQuantity,
+} from "../actions/cartActions";
 import { BiLoader } from "react-icons/bi";
 import { LuShoppingCart } from "react-icons/lu";
-
+import { AiFillDelete } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
 import Cookies from "js-cookie";
 
 const Cart = () => {
-  const [quantity, setQuantity] = useState(1);
   const cartItems = useSelector((state) => state.cartReducer);
+  const dispatch = useDispatch();
 
   let cartData = [];
   let totalCartPrice;
+  const incQuantity = "Increase";
+  const decQuantity = "Decrease";
 
   if (cartItems.cartItemsList) {
     var { cartItemsList, error, loading } = cartItems;
@@ -20,7 +26,7 @@ const Cart = () => {
     const itemPrices =
       cartData.length > 0 &&
       cartData.map((val) => {
-        return val.quantity * val.price;
+        return val.price;
       });
     totalCartPrice =
       itemPrices &&
@@ -29,12 +35,18 @@ const Cart = () => {
       });
   }
 
-  const dispatch = useDispatch();
-
   useEffect(() => {
     const id = Cookies.get("userId");
     dispatch(cartItemList(id));
-  }, []);
+  }, [dispatch]);
+
+  const handleDeleteItemFromCart = async (_id) => {
+    return dispatch(removeCartItem(_id));
+  };
+
+  const handleQuantityChange = (item) => {
+    return dispatch(changeCartItemQuantity(item));
+  };
 
   const loadCartItems = cartData && cartData.length !== 0;
 
@@ -60,18 +72,37 @@ const Cart = () => {
                       <div className="flex justify-evenly ml-3">
                         <AiFillPlusCircle
                           onClick={() => {
-                            setQuantity(quantity + 1);
+                            handleQuantityChange({
+                              quantity: incQuantity,
+                              value: value.quantity,
+                              price: value.price,
+                              id: value._id,
+                            });
                           }}
                           className="mr-2"
                         />
                         {value.quantity}
                         <AiFillMinusCircle
                           onClick={() => {
-                            setQuantity(quantity - 1);
+                            handleQuantityChange({
+                              quantity: decQuantity,
+                              value: value.quantity,
+                              price: value.price,
+                              id: value._id,
+                            });
                           }}
                           className="ml-2"
                         />
                       </div>
+                    </div>
+                    <div className="flex space-x-3 cursor-pointer">
+                      <span>Delete</span>
+                      <AiFillDelete
+                        className="w-4 h-6"
+                        onClick={() => {
+                          handleDeleteItemFromCart(value._id);
+                        }}
+                      />
                     </div>
                   </div>
                   <div>

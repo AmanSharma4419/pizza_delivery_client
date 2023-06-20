@@ -8,7 +8,8 @@ import {
 } from "../actions/actionTypes";
 
 const initialState = {
-  user: [],
+  userRegisterationData: [],
+  userLoginData: [],
   error: "",
   loading: false,
 };
@@ -24,7 +25,7 @@ export const userAuthReducer = (state = initialState, action) => {
     case REGISTERATION_SUCCESS:
       return {
         ...state,
-        user: action.payload,
+        userRegisterationData: action.payload,
         loading: false,
       };
 
@@ -42,7 +43,7 @@ export const userAuthReducer = (state = initialState, action) => {
     case LOGIN_SUCCESS:
       return {
         ...state,
-        user: action.payload,
+        userLoginData: action.payload,
         loading: false,
       };
     case LOGIN_FAILED:

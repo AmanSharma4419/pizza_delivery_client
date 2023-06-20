@@ -27,18 +27,21 @@ const Register = (props) => {
   };
 
   const dispatch = useDispatch();
-
+  const navigate = useNavigate();
   const userInfo = useSelector((state) => state.userAuthReducer);
-  const { loading, error, user } = userInfo;
+
+  if (userInfo && userInfo.userRegisterationData.length !== 0) {
+    var { loading, error, userRegisterationData } = userInfo;
+    if (userRegisterationData.status === 200) {
+      return navigate("/login");
+    }
+  }
 
   const handleSubmitRegisterationForm = (e) => {
     e.preventDefault();
-    dispatch(userRegister(signupFormData, userProfileImg));
+    return dispatch(userRegister(signupFormData, userProfileImg));
   };
-  const navigate = useNavigate();
-  if (user.status === 200) {
-    navigate("/login");
-  }
+
   const { name, email, password } = signupFormData;
   return (
     <div class="flex justify-center items-center mt-12">
