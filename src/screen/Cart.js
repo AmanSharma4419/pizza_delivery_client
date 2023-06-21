@@ -26,7 +26,7 @@ const Cart = () => {
     const itemPrices =
       cartData.length > 0 &&
       cartData.map((val) => {
-        return val.price;
+        return val.price * val.quantity;
       });
     totalCartPrice =
       itemPrices &&
@@ -45,7 +45,8 @@ const Cart = () => {
   };
 
   const handleQuantityChange = (item) => {
-    return dispatch(changeCartItemQuantity(item));
+    const { quantity, id } = item;
+    return dispatch(changeCartItemQuantity({ quantity, id }));
   };
 
   const loadCartItems = cartData && cartData.length !== 0;
@@ -66,7 +67,7 @@ const Cart = () => {
                 >
                   <div className="py-4">
                     <p>{value.name}</p>
-                    <span>Price</span> : {value.price}
+                    <span>Price</span> : {value.price * value.quantity}
                     <div className="flex">
                       <span>Quantity :</span>
                       <div className="flex justify-evenly ml-3">
@@ -74,7 +75,6 @@ const Cart = () => {
                           onClick={() => {
                             handleQuantityChange({
                               quantity: incQuantity,
-                              value: value.quantity,
                               price: value.price,
                               id: value._id,
                             });
@@ -86,7 +86,6 @@ const Cart = () => {
                           onClick={() => {
                             handleQuantityChange({
                               quantity: decQuantity,
-                              value: value.quantity,
                               price: value.price,
                               id: value._id,
                             });

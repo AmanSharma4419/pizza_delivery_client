@@ -91,14 +91,12 @@ export const removeCartItem = (id) => {
   };
 };
 
-export const changeCartItemQuantity = (item) => {
+export const changeCartItemQuantity = ({ quantity, id }) => {
   return async (dispatch) => {
     dispatch({ type: ITEM_QUANTITY_CHANGE_REQUEST_SENT });
     try {
-      const { quantity, price, id, value } = item;
-      const itemPrice = value * price;
       const response = await axios.post(
-        `${BASE_URL}/api/cart/item-quantity-change?quantity=${quantity}&price=${itemPrice}&itemId=${id}`,
+        `${BASE_URL}/api/cart/item-quantity-change?quantity=${quantity}&itemId=${id}`,
         {},
         {
           withCredentials: true,
