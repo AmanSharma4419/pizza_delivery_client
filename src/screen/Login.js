@@ -22,9 +22,9 @@ const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const userInfo = useSelector((state) => state.userAuthReducer);
+  const { loading, error, userLoginData } = userInfo;
 
   if (userInfo && userInfo.userLoginData.length !== 0) {
-    var { loading, error, userLoginData } = userInfo;
     Cookies.set("userId", userLoginData.data._id);
     if (userLoginData.status === 200) {
       return navigate("/");
@@ -33,10 +33,11 @@ const Login = () => {
 
   const handleSubmitLoginForm = (e) => {
     e.preventDefault();
-    return dispatch(userLogin({ loginFormData }));
+    dispatch(userLogin({ loginFormData }));
   };
 
   const { email, password } = loginFormData;
+  console.log(error, loading, userInfo, "reducer response");
 
   return (
     <div class="flex justify-center items-center mt-12">

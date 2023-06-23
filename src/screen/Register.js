@@ -29,9 +29,9 @@ const Register = (props) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const userInfo = useSelector((state) => state.userAuthReducer);
+  const { loading, error, userRegisterationData } = userInfo;
 
   if (userInfo && userInfo.userRegisterationData.length !== 0) {
-    var { loading, error, userRegisterationData } = userInfo;
     if (userRegisterationData.status === 200) {
       return navigate("/login");
     }
