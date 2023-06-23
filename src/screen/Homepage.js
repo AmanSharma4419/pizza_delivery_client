@@ -6,17 +6,28 @@ import { BiCommentError, BiLoader } from "react-icons/bi";
 
 const HomePage = () => {
   const [filteredPizzas, setfilter] = useState([]);
-  const [name, setName] = useState("");
-  const [itemCategory, setCategory] = useState("");
-  console.log(itemCategory, name, "nnnn");
+  const [page, setPage] = useState(1);
+  const [limit, setLimit] = useState(9);
   const dispatch = useDispatch();
 
   const pizzasState = useSelector((state) => state.getAllPizzaReducer);
-  const { allPizzaDataInfo, loading, error } = pizzasState;
+  const { allPizzaDataInfo, loading, error, totalPagesCount } = pizzasState;
+
+  const handlePrevClick = () => {
+    if (page > 1) {
+      setPage(page - 1);
+    } else {
+      setPage(1);
+    }
+  };
+
+  const handleNextClick = () => {
+    setPage(page + 1);
+  };
 
   useEffect(() => {
-    dispatch(getAllPizzas());
-  }, [dispatch]);
+    dispatch(getAllPizzas({ limit, page }));
+  }, [page, dispatch, limit]);
 
   return loading ? (
     <div className="flex font-semibold flex-col items-center justify-center mt-[15%]">
@@ -34,15 +45,31 @@ const HomePage = () => {
         {filterPizzas({
           setfilter,
           allPizzaDataInfo,
-          name,
-          setName,
-          itemCategory,
-          setCategory,
         })}
         <div className="flex flex-wrap">
           {renderPizzas(
             filteredPizzas.length > 0 ? filteredPizzas : allPizzaDataInfo
           )}
+          <div className="flex justify-center py-10 w-full">
+            <button
+              className="mx-10"
+              onClick={() => {
+                handlePrevClick();
+              }}
+            >
+              ...Prev{" "}
+            </button>
+            {page}
+            <button
+              className="mx-10"
+              disabled={totalPagesCount === page}
+              onClick={() => {
+                handleNextClick();
+              }}
+            >
+              Next...
+            </button>
+          </div>
         </div>
       </>
     )
@@ -55,34 +82,29 @@ const renderPizzas = (allPizzaDataInfo) => {
   });
 };
 
-const filterPizzas = ({
-  setfilter,
-  allPizzaDataInfo,
-  name,
-  setName,
-  itemCategory,
-  setCategory,
-}) => {
+const filterPizzas = ({ setfilter, allPizzaDataInfo }) => {
   const pizzaCategory = ["All", "veg", "nonveg"];
 
+  let filteredData = [];
   const handleChange = (e) => {
-    setName(e.target.value);
-    const filteredData = allPizzaDataInfo.filter((item) =>
-      item.name.toLowerCase().includes(name.toLowerCase())
+    filteredData = allPizzaDataInfo.filter((item) =>
+      item.name.toLowerCase().includes(e.target.value.toLowerCase())
     );
-    return setfilter(filteredData);
+    if (filteredData.length === 0) {
+      alert("No Pizza Found");
+    } else {
+      setfilter(filteredData);
+    }
   };
 
   const handleOptionSelection = (e) => {
-    setCategory(e.target.value);
-    const filteredData = allPizzaDataInfo.filter(
-      (item) => item.category.toLowerCase() === itemCategory.toLowerCase()
+    filteredData = allPizzaDataInfo.filter(
+      (item) => item.category.toLowerCase() === e.target.value.toLowerCase()
     );
-    return setfilter(filteredData);
   };
 
   const handleFilterPizzas = () => {
-    console.log(allPizzaDataInfo, "allPizzaDataInfo");
+    return setfilter(filteredData);
   };
 
   return (
@@ -94,7 +116,6 @@ const filterPizzas = ({
           onChange={(e) => {
             handleChange(e);
           }}
-          value={name}
         />
         <select
           onChange={(e) => handleOptionSelection(e)}

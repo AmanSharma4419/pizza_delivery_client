@@ -7,6 +7,7 @@ import {
 const initialState = {
   allPizzaDataInfo: [],
   error: "",
+  totalPagesCount: "",
   loading: false,
 };
 
@@ -21,7 +22,8 @@ export const getAllPizzaReducer = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
-        allPizzaDataInfo: [...action.payload],
+        allPizzaDataInfo: [...action.payload.data],
+        totalPagesCount: action.payload.totalPages,
       };
     case GET_PIZZAS_FAILED:
       return {
