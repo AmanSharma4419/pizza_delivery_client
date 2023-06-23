@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import Payment from "../components/Payment";
 import { AiFillPlusCircle, AiFillMinusCircle } from "react-icons/ai";
 import {
   cartItemList,
@@ -127,13 +128,11 @@ const Cart = () => {
         )}
       </div>
       {loadCartItems && (
-        <div className="mr-40 py-6 ">
+        <div className="mr-40 py-6 items-end  flex flex-col  ">
           <h1 className="font-bold text-3xl">
             SubTotal={totalCartPrice} /- INR
           </h1>
-          <button className="bg-red-600 py-2 px-5 text-white ml-[50%] mt-4">
-            Pay Now
-          </button>
+          <Payment totalAmt={totalCartPrice} />
         </div>
       )}
     </div>
