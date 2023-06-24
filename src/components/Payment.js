@@ -4,11 +4,14 @@ import { placeOrderPayment } from "../actions/paymentAction";
 import { useDispatch, useSelector } from "react-redux";
 import { BiLoader } from "react-icons/bi";
 
-const Payment = ({ totalAmt }) => {
+const Payment = ({ totalAmt, cartItems }) => {
   const dispatch = useDispatch();
+
+  const cartItemsIds = cartItems && cartItems.map((item) => item._id);
   const handleStripeToken = (token) => {
-    dispatch(placeOrderPayment({ token, totalAmt }));
+    dispatch(placeOrderPayment({ token, totalAmt, cartItemsIds }));
   };
+
   const orderPaymentInfo = useSelector((state) => state.orderPaymentReducer);
   const { loading, isPaymentSuccess } = orderPaymentInfo;
   return (

@@ -133,7 +133,7 @@ const Cart = () => {
           <h1 className="font-bold text-3xl">
             SubTotal={totalCartPrice} /- INR
           </h1>
-          <Payment totalAmt={totalCartPrice} />
+          <Payment totalAmt={totalCartPrice} cartItems={cartData} />
         </div>
       )}
     </div>
