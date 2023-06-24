@@ -1,8 +1,11 @@
 import React from "react";
 import StripeCheckout from "react-stripe-checkout";
-
+import { placeOrderPayment } from "../actions/paymentAction";
+import { useDispatch } from "react-redux";
 const Payment = ({ totalAmt }) => {
+  const dispatch = useDispatch();
   const handleStripeToken = (token) => {
+    dispatch(placeOrderPayment({ token, totalAmt }));
     // In Progress
   };
 
