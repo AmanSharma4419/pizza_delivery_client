@@ -10,11 +10,13 @@ import { composeWithDevTools } from "@redux-devtools/extension";
 import { getAllPizzaReducer } from "./reducers/pizzaReducers";
 import { userAuthReducer } from "./reducers/userReducers";
 import { cartReducer } from "./reducers/cartReducers";
+import { orderPaymentReducer } from "./reducers/paymentReducer";
 
 const parentReducer = combineReducers({
   getAllPizzaReducer,
   userAuthReducer,
   cartReducer,
+  orderPaymentReducer,
 });
 
 const composeEnhancers = composeWithDevTools({});
