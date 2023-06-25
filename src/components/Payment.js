@@ -13,7 +13,9 @@ const Payment = ({ totalAmt, cartItems }) => {
   };
 
   const orderPaymentInfo = useSelector((state) => state.orderPaymentReducer);
-  const { loading, isPaymentSuccess } = orderPaymentInfo;
+  const { loading, isPaymentSuccess, isPaymentFailed, error } =
+    orderPaymentInfo;
+  const orderPlacedSuccess = "YOUR OREDER PLACED SUCCESSFULLY";
   return (
     <>
       <div>
@@ -30,7 +32,7 @@ const Payment = ({ totalAmt, cartItems }) => {
             </button>
           ) : isPaymentSuccess ? (
             <div className="h-10 mt-10 border bg-blend-darken p-2 shadow-xl  animate-bounce ">
-              {"Your order placed successfully"}
+              {isPaymentFailed ? error : orderPlacedSuccess}
             </div>
           ) : (
             <button className="px-6 py-2 mt-4 text-white text-right rounded-sm bg-red-600">
